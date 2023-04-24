@@ -172,6 +172,11 @@ namespace pico_ssd1306 {
         this->cmd(contrast);
     }
 
+    void SSD1306::setSleep(bool sleep) {
+        unsigned char command = sleep ? SSD1306_DISPLAY_OFF : SSD1306_DISPLAY_ON;
+        this->cmd(command);
+    }
+
     void SSD1306::setBuffer(unsigned char * buffer) {
         this->frameBuffer.setBuffer(buffer);
     }

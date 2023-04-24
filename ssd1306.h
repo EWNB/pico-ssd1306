@@ -121,6 +121,10 @@ namespace pico_ssd1306 {
         /// \brief Sets display contrast according to ssd1306 documentation
         /// \param contrast - accepted values of 0 to 255 to set the contrast
         void setContrast(unsigned char contrast);
+
+        /// \brief Enable or disable sleep mode
+        /// \param on - false for normal mode, true for sleep mode
+        void setSleep(bool sleep);
     };
 
 }
