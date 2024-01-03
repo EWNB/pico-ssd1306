@@ -18,6 +18,8 @@ namespace pico_ssd1306 {
         // display is not inverted by default
         this->inverted = false;
 
+        this->i2cFail = false;
+
         // this is a list of setup commands for the display
         uint8_t setup[] = {
                 SSD1306_DISPLAY_OFF,
@@ -118,7 +120,11 @@ namespace pico_ssd1306 {
         memcpy(data + 1, frameBuffer.get(), FRAMEBUFFER_SIZE);
 
         // send data to device
-        i2c_write_blocking(this->i2CInst, this->address, data, FRAMEBUFFER_SIZE + 1, false);
+        int ret = -1;
+        ret = i2c_write_timeout_us(this->i2CInst, this->address, data, FRAMEBUFFER_SIZE + 1, false, 1000 * FRAMEBUFFER_SIZE);
+        if (ret != FRAMEBUFFER_SIZE + 1) {
+            i2cFail = true;
+        }
     }
 
     void SSD1306::clear() {
@@ -163,7 +169,11 @@ namespace pico_ssd1306 {
     void SSD1306::cmd(unsigned char command) {
         // 0x00 is a byte indicating to ssd1306 that a command is being sent
         uint8_t data[2] = {0x00, command};
-        i2c_write_blocking(this->i2CInst, this->address, data, 2, false);
+        int ret = -1;
+        ret = i2c_write_timeout_us(this->i2CInst, this->address, data, 2, false, 1000);
+        if (ret != 2) {
+            i2cFail = true;
+        }
     }
 
 
