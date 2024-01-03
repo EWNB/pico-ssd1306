@@ -71,6 +71,8 @@ namespace pico_ssd1306 {
 
         bool inverted;
 
+        bool i2cFail;
+
         /// \brief Sends single 8bit command to ssd1306 controller
         /// \param command - byte to be sent to controller
         void cmd(unsigned char command);
@@ -125,6 +127,10 @@ namespace pico_ssd1306 {
         /// \brief Enable or disable sleep mode
         /// \param on - false for normal mode, true for sleep mode
         void setSleep(bool sleep);
+
+        bool getI2cFailed() {
+            return this->i2cFail;
+        }
     };
 
 }
