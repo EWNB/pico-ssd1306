@@ -194,4 +194,12 @@ namespace pico_ssd1306 {
         this->cmd(SSD1306_DISPLAY_ON);
     }
 
+    bool SSD1306::getI2cFailed(bool clear) {
+        bool result = this->i2cFail;
+        if (clear) {
+            this->i2cFail = false;
+        }
+        return result;
+    }
+
 }

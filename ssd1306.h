@@ -130,9 +130,9 @@ namespace pico_ssd1306 {
         /// \brief Turns display on
         void turnOn();
 
-        bool getI2cFailed() {
-            return this->i2cFail;
-        }
+        /// \brief
+        /// \param clear -
+        bool getI2cFailed(bool clear = false);
     };
 
 }
